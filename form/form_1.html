@@ -98,7 +98,7 @@ ccBtn.addEventListener('click',cancle)
 
 function submit(e) {
 	for (let i = 0; i < inputs.length; ++i) {
-		let formData = inputs[i].value.length; //길게 쓰기 싫어서 선언함
+		let formData = inputs[i].value.length;
 		let labelData = labels[i].textContent
 		if (formData === 0){
 			inputs[i].style.border = '2px solid red';
