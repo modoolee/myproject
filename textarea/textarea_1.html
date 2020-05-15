@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>hello world!</title>
+<style>
+* {margin:0; padding:0}
+.comment {
+	padding:30px 0;
+	width:500px;
+	margin:0 auto;
+}
+.comment h4{
+	text-align: center;
+	margin-bottom:20px;
+}
+.comment textarea {
+	border:3px solid black;
+	width:100%;
+	display:block;
+	height:100px;
+	padding:20px;
+	font-size:16px;
+	box-sizing: border-box;
+}
+.comment .counter {text-align:right;}
+.comment .counter > span.toomuch {color:red}
+</style>
+
+</head>
+<body>
+<div class="comment">
+	<h4>댓글을 남겨주세요.</h4>
+	<p>50자내로 작성해주세요</p>
+	<textarea maxlength="50"></textarea>
+	<div class="counter"><span>0</span><strong> / 50</strong></div>
+</div>
+<script>
+//선생님 푸조태그
+// 1. 키보드가 눌려질때 감지 하기 위해서 감지장치 붙인다.
+// 2. 감지가 일어나면 인풋에 접근해서 어떤글자가 들어가 있는지 문자열로 가져온다.
+// 3. 그 문자열의 갯수를 센다.
+// 4. 센것이 if(센것 >  maxlengt) toomuch클래스를 counterSpan에 준다.
+
+// textarea에 글씨가 입력될 때 마다 몇 글자를 입력했는지 표기하세요.
+// maxlength에 설정된 값보다 넘으면 <span class="toomuch">가 되도록 하세요.
+
+// keyup이벤트를 사용하세요. (나의 푸조태그)
+// 1. 결과 값)글자 수가 늘어 날때마다 counterSpan의 숫자가 늘어나야한다.
+// 2. 'key up' 이벤트가 일어날때마다 textarea.length 숫자값이 1씩 증가한다.
+// 3. 'delete'를 누르면 textarea.length의 숫자값이 1씩 줄어는다.
+// 4. textarea의 값은 counter값과 같아야한다.
+
+//1. 키보드가 눌려질때 maxlength값이 변한다.
+//2. maxlength값이 변하면 p태그의 글자값이 변한다.
+//3. p태그의 글자값이 변하면 strong태그 값이 변한다.
+//4. maxlength값을 가져온다.
+//5. p태그안에 어떤 텍스트가 있는지 가져온다.(indexOf,split)
+//6. p태그안의 해당 글자수의 length값을 구하고 저장한다.
+//7. strong태그안의 어떤 텍스트가 있는지 가져오고 해당글자수의 length값을 구한다. 
+
+var inputText = document.querySelector("textarea");
+var counterSpan = document.querySelector(".counter > span");
+var maxNum = inputText.maxLength;
+var pElem = document.querySelector('.comment > p')
+var strElem = document.querySelector('.counter > strong')
+
+pElem.textContent = maxNum + '자내로 작성해주세요' //${}도 가능!
+strElem.textContent = '/' + maxNum;
+
+inputText.addEventListener('keyup', countText)
+
+function countText(e) {
+
+	let textLength = this.value.length;
+	counterSpan.textContent = textLength;
+	if(textLength >= maxNum){
+		counterSpan.className = 'toomuch'
+	} else {counterSpan.className = ''}
+
+	console.log() //or (this.value)
+}
+
+
+</script>
+</body>
+</html>

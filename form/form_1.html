@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>hello world!</title>
+<style>
+* {margin:0; padding:0}
+::selection {background-color: gold;}
+.form {width:600px; margin:50px auto 0}
+.form table {background-color:gainsboro; width:100%; margin-bottom:20px}
+.form table caption {padding:20px; font-size:24px;}
+.form table th,table td {padding:10px}
+table td > span{font-size:12px ; color: orange; margin-left: 12px;}
+.form table th {text-align: left}
+.form table input {width:200px; border-style:none; padding:10px; border-radius:5px;}
+.form input.btn {background-color: greenyellow; padding:5px 10px; font-size:16px; border-radius:3px;}
+</style>
+
+</head>
+<body>
+<div class="form">
+	<table>
+		<col style="width:20%"/>
+		<col/>
+		<caption>회원가입</caption>
+		<tbody>
+			<tr>
+				<th><label for="user_name">이름</label></th>
+				<td><input type="text" id="user_name" placeholder="본명을 입력해 주세요"/></td>
+			</tr>
+			<tr>
+				<th><label for="user_birthday">생년월일</label></th>
+				<td><input type="text" id="user_birthday" placeholder="yymmdd로 입력해 주세요."/></td>
+			</tr>
+			<tr>
+				<th><label for="user_phone">휴대폰 번호</label></th>
+				<td><input type="text" id="user_phone" placeholder="'-'를 제외해 주세요."/></td>
+			</tr>
+			<tr>
+				<th><label for="user_id">ID</label></th>
+				<td><input type="text" id="user_id" /></td>
+			</tr>
+			<tr>
+				<th><label for="user_pw">PW</label></th>
+				<td><input type="password" id="user_pw" placeholder="영문,숫자 6자리 이상"/></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<input type="submit" value="확인" class="btn" />
+		<input type="button" value="취소" class="btn" />
+	</div>
+</div>
+<script>
+// 확인버튼을 눌렀을때 글씨를 적지 않은 필드가 있으면, border:2px solid red로 만들고
+// console.log()로 그 해당필드에 입력하라는 메세지를 보여주세요.
+// ex. "아이디를 입력해 주세요!"
+
+// 나의 푸조
+// 1. '확인'버튼에 이벤트 감지기를 붙인다.
+// 2. 이벤트가 일어나면 for문이 실행된다.
+// 3. input 태그의 length값이 0일 경우, 해당창으로 alert으로 창을 띄운다.
+
+// 선생님 푸조
+// 버튼에 감지장치를 붙이고 버튼을 누르면 inputs배열을 돌면서
+//value.length 0인지를 확인한다.
+// 그 인풋.style.border = '1px solid red' 
+
+
+// var okBtn = document.querySelector("input[type=submit]");
+// var inputs = document.querySelectorAll("td input");
+// var labels = document.querySelectorAll("th label");
+
+// okBtn.addEventListener('click',submit)
+
+// function submit(e) {
+// 	for (let i = 0; i < inputs.length; ++i) {
+// 		let formData = inputs[i].value.length; //길게 쓰기 싫어서 선언함
+// 		let labelData = labels[i].textContent
+// 		if (formData === 0){
+// 			alert(labelData + '을 입력해주세요.')
+// 			inputs[i].style.border = '2px solid red'
+// 		} else {
+// 			inputs[i].style.border = ''
+// 		}
+// } 	
+// }
+
+
+var okBtn = document.querySelector("input[type=submit]");
+var ccBtn = document.querySelector("input[type=button]");
+var inputs = document.querySelectorAll("td input");
+var labels = document.querySelectorAll("th label");
+
+
+okBtn.addEventListener('click',submit)
+ccBtn.addEventListener('click',cancle)
+
+function submit(e) {
+	for (let i = 0; i < inputs.length; ++i) {
+		let formData = inputs[i].value.length; //길게 쓰기 싫어서 선언함
+		let labelData = labels[i].textContent
+		if (formData === 0){
+			inputs[i].style.border = '2px solid red';
+ 			//alert(labelData + '을 입력해주세요.')
+			if (!inputs[i].nextElementSibling){
+			const spanElem = document.createElement('span');
+			const spanText = document.querySelector(`label[for='${inputs[i].id}']`).
+			textContent + '(을)를 입력해주세요.'
+			spanElem.textContent = spanText;
+			inputs[i].parentNode.appendChild(spanElem);			
+			}
+
+			console.log(spanText);
+			
+		} else {
+			inputs[i].style.border = '';
+			if(inputs[i].nextSibling){
+			   inputs[i].nextSibling.remove();	
+			}
+		}
+} 	
+}
+function cancle(e) {
+	for (let i = 0; i < inputs.length; ++i) {
+		inputs[i].value = '';
+		inputs[i].style.border ='';
+		if (!inputs[i].nextElementSibling){
+		inputs[i].nextSibling.remove();	
+	}
+	}
+}
+
+
+
+</script>
+</body>
+</html>
